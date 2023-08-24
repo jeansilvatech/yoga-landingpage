@@ -1,18 +1,21 @@
 $primaryColor: #ffffff;
+$secondaryColor: #0a0a0a;
+$breakpoint-mobile: 600px;
 
-@mixin flexCenter($justifyContent){
+@mixin flexCenter($justifyContent) {
     display: flex;
     justify-content: $justifyContent;
     align-items: center;
 }
 
-*{
- padding: 0;
- margin: 0;
- box-sizing: border-box;
- transition: 1s;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    transition: 1s;
 }
-body{
+
+body {
     width: 100vw;
     height: 100vh;
     font-family: 'Poppins', sans-serif;
@@ -22,18 +25,56 @@ body{
     background-size: cover;
     background-position: center;
 }
-.container{
+
+.container {
     width: 100%;
     height: 100%;
-   @include flexCenter(center);
-    .nav-bar{
+    @include flexCenter(center);
+
+    .nav-bar {
         position: fixed;
         inset: 0;
         width: 100%;
         height: 150px;
-        @include flexCenter(space-evenly)
+        @include flexCenter(space-around);
+        .logo {
+            img {
+                width: 60px;
+            }
+        }
+        
+        .btn-group {
+            width: 50%;
+            @include flexCenter(center);
+        
+            a {
+                margin: 20px;
+                padding: 10px 0;
+                text-decoration: none;
+                color: $primaryColor;
+                border-bottom: 1px solid transparent;
+            }
+        
+            a:hover {
+                border-bottom: 1px solid $primaryColor;
+            }
+        }
+        .menu-mobile {
+            display: none;
+            flex-direction: column;
+            width: 60px;
+            height: 60px;
+        
+            .trace {
+                width: 50px;
+                margin-bottom: 10px;
+                height: 2px;
+                background-color: $primaryColor;
+            }
+        }
     }
-    .principal{
+
+    .principal {
         width: 500px;
         height: 500px;
         background-image: url(../img/yoga.webp);
@@ -42,17 +83,18 @@ body{
         background-size: contain;
         animation: float 8s ease-in-out infinite;
         @include flexCenter(center);
-        flex-direction: column; 
+        flex-direction: column;
         text-align: center;
     }
-    .principal h1{
+
+    .principal h1 {
         font-size: 100px;
         color: $primaryColor;
-        letter-spacing: 100px;
         transform: translateX(50px);
         animation: h1 8s ease-in-out infinite;
     }
-    .principal h2{
+
+    .principal h2 {
         text-transform: uppercase;
         letter-spacing: 50px;
         text-align: center;
@@ -61,36 +103,65 @@ body{
         animation: float 8s ease-in-out infinite;
     }
 }
+
 @keyframes float {
-    0%, 100%{
-        transform: translateY(-20px); 
+
+    0%,
+    100% {
+        transform: translateY(-20px);
     }
-    50%{
+
+    50% {
         transform: translateY(0px);
     }
-    
+
 }
+
 @keyframes h1 {
-    0%, 100%{
-        letter-spacing: 100px; 
+
+    0%,
+    100% {
+        letter-spacing: 100px;
     }
-    50%{
+
+    50% {
         letter-spacing: 0px;
         transform: translateX(0px);
     }
-    
+
 }
-.nav-bar .btn-group{
-    width: 50%;
-    @include flexCenter(center);
-    a{
-        margin: 20px;
-        padding: 10px 0;
-        text-decoration: none;
-        color: $primaryColor;
-        border-bottom: 1px solid transparent;
+
+@media (max-width: $breakpoint-mobile) {
+    .container {
+
+        .principal {
+            width: 300px;
+            height: 300px;
+
+            h1 {
+                transform: translateX(0px);
+                animation: none;
+            }
+
+            h2 {
+                animation: none;
+                letter-spacing: 4px;
+                color: $secondaryColor;
+            }
+        }
+        .nav-bar {
+            justify-content: space-between;
+            padding: 10px;
+    
+            .btn-group {
+                display: none;
+            }
+    
+            .menu-mobile {
+                @include flexCenter(center);
+            }
+        }
     }
-    a:hover{
-        border-bottom: 1px solid $primaryColor;
-    }
+
+
 }
